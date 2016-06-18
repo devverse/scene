@@ -5,7 +5,6 @@ var walk    = require('walk');
 var files   = [];
 
 app.use('/public', express.static('public'));
-app.use('/images', express.static('public/images'));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -38,6 +37,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/api/images', function(req, res) {
+	console.log('images');
 	// Walker options
 	var walker  = walk.walk('/public/images', { followLinks: false });
 
@@ -63,7 +63,9 @@ app.get('/api/images', function(req, res) {
 });
 
 app.get('/api/videos', function(req, res) {
-	var walker  = walk.walk('/videos', { followLinks: false });
+	console.log('videos');
+
+	var walker  = walk.walk('/public/videos', { followLinks: false });
 
 	walker.on('file', function(root, stat, next) {
 		// Add this file to the list of files
